@@ -1,4 +1,4 @@
-package com.orient.demo.Data
+package com.orient.demo.roomdata
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

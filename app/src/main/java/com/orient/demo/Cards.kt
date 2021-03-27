@@ -2,10 +2,7 @@ package com.orient.demo
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -14,16 +11,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.orient.demo.Data.Event
+import com.orient.demo.roomdata.Event
 import com.orient.demo.ui.theme.MyGreen
 import com.orient.demo.ui.theme.MyRed
 import com.orient.demo.ui.theme.MyYellow
 
 @Composable
-fun Cards(event: Event,update:()->Unit) {
+fun Cards(event: Event, update: () -> Unit) {
     MaterialTheme {
         val typography = MaterialTheme.typography
         val color = if (!event.eventDone) when (event.eventDegree) {
@@ -33,28 +33,41 @@ fun Cards(event: Event,update:()->Unit) {
         } else Color.LightGray
         Surface(
             color = Color.White, modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp, top = 8.dp)
-                .fillMaxWidth().clickable(onClick = { update() }),
+                .padding(start = 12.dp, end = 12.dp, top = 6.dp)
+                .fillMaxWidth()
+                .clickable(onClick = { update() }),
             shape = RoundedCornerShape(10.dp), elevation = 4.dp
         ) {
             Row(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier.padding(12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Canvas(modifier = Modifier.size(16.dp)) {
-                    drawCircle(color = color)
+                Canvas(
+                    modifier = Modifier
+                        .width(10.dp)
+                        .height(30.dp)
+                ) {
+                    drawLine(
+                        color = color,
+                        start = Offset(14f, 12.5f),
+                        end = Offset(14f, 70.5f),
+                        strokeWidth = 25f,
+                        cap = StrokeCap.Round
+                    )
                 }
                 if (!event.eventDone) {
                     Text(
                         text = event.eventName,
                         style = typography.subtitle1,
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier.padding(start = 12.dp)
                     )
                 } else {
                     Text(
                         text = event.eventName,
                         style = typography.subtitle1,
-                        modifier = Modifier.padding(start = 16.dp).alpha(0.8f),
+                        modifier = Modifier
+                            .padding(start = 12.dp)
+                            .alpha(0.8f),
                         textDecoration = TextDecoration.LineThrough
                     )
                 }
@@ -64,3 +77,10 @@ fun Cards(event: Event,update:()->Unit) {
 
     }
 }
+
+//@Preview(showBackground = true)
+//@Composable
+//fun default() {
+//    Cards(event = Event("哭泣的黑曜石", 3, "2021,3,28", false)) {
+//    }
+//}

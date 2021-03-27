@@ -1,13 +1,14 @@
 package com.orient.demo
 
-import androidx.lifecycle.LiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.orient.demo.Data.AppDatabase
-import com.orient.demo.Data.Event
+import com.orient.demo.roomdata.AppDatabase
+import com.orient.demo.roomdata.Event
+import kotlinx.coroutines.coroutineScope
 import kotlin.concurrent.thread
 
 class MyViewModel : ViewModel() {
-    val eventDao = AppDatabase.getDatabase(MyApplication.context).eventDao()
+    private val eventDao = AppDatabase.getDatabase(MyApplication.context).eventDao()
     fun getEventList() = eventDao.loadAllEvent()
 
     fun insertEvent(event: Event) {
@@ -15,7 +16,8 @@ class MyViewModel : ViewModel() {
     }
 
     fun updateEvent(newEvent: Event) {
-        thread { eventDao.updateEvent(newEvent) }
+        thread{ eventDao.updateEvent(newEvent)
+        }
     }
 
     fun deleteEvent(eid: Long) {

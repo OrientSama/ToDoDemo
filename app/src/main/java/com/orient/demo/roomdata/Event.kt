@@ -1,4 +1,4 @@
-package com.orient.demo.Data
+package com.orient.demo.roomdata
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
