@@ -13,7 +13,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-
+import com.orient.demo.Data.Event
 
 
 @Composable
@@ -41,7 +41,9 @@ fun FirstScreen(showEdit:()->Unit){
                 if (list.value != null){
                     Column {
                         for (event in list.value!!){
-                            Cards(event_name = event.eventName, degree = event.eventDegree,event_done = event.eventDone,eid = event.eid)
+                            Cards(event_name = event.eventName, degree = event.eventDegree,event_done = event.eventDone,eid = event.eid){
+                                event.eventDone = true
+                                viewModel.updateEventByDone(event)}
                         }
                     }
                 } else {
@@ -53,17 +55,17 @@ fun FirstScreen(showEdit:()->Unit){
 }
 
 @Composable
-fun Cards(event_name: String,degree: Int,event_done:Boolean,eid:Long) {
+fun Cards(event_name: String,degree: Int,event_done:Boolean,eid:Long,update:()->Unit) {
     MaterialTheme {
         val typography = MaterialTheme.typography
-        val color = when(degree){
+        val color = if(!event_done)when(degree){
             1 -> com.orient.demo.ui.theme.MyGreen
             2 -> com.orient.demo.ui.theme.MyYellow
             else -> com.orient.demo.ui.theme.MyRed
-        }
+        } else androidx.compose.ui.graphics.Color.LightGray
         Surface(color = Color.White,modifier = Modifier
             .padding(start = 16.dp, end = 16.dp, top = 8.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth().clickable(onClick = { update() }),
             shape = RoundedCornerShape(10.dp),elevation = 4.dp) {
             Row(modifier = Modifier.padding(16.dp),verticalAlignment = Alignment.CenterVertically){
                 Canvas(modifier = Modifier.size(16.dp)) {

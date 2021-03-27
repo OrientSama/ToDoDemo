@@ -38,7 +38,7 @@ fun EditWindow(showEdit: ()-> Unit) {
             .background(Color.Transparent)
             .fillMaxWidth(),shape = RoundedCornerShape(10.dp)) {
 
-            Column() {Row (Modifier.padding(top = 16.dp,start = 16.dp,bottom = 2.dp)){
+            Column {Row (Modifier.padding(top = 16.dp,start = 16.dp,bottom = 2.dp)){
                 Box(modifier = Modifier
                     .size(20.dp)
                     .clip(RoundedCornerShape(50))
