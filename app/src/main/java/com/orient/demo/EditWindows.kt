@@ -1,6 +1,7 @@
 package com.orient.demo
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -24,21 +25,23 @@ import java.util.*
 
 @SuppressLint("SimpleDateFormat")
 @Composable
-fun EditWindow(noEdit: ()-> Unit) {
-    val viewModel:MyViewModel = viewModel()
-    var text by remember{ mutableStateOf("") }
+fun EditWindow(noEdit: () -> Unit) {
+    val viewModel: MyViewModel = viewModel()
+    var text by remember { mutableStateOf("") }
     var checked by remember { mutableStateOf(1) }
-    var (color1,color2,color3) = when(checked){
-        1 -> ColorState(MyGreen,Color.LightGray,Color.LightGray)
-        2 -> ColorState(Color.LightGray, MyYellow,Color.LightGray)
-        else -> ColorState(Color.LightGray,Color.LightGray, MyRed)
+    var (color1, color2, color3) = when (checked) {
+        1 -> ColorState(MyGreen, Color.LightGray, Color.LightGray)
+        2 -> ColorState(Color.LightGray, MyYellow, Color.LightGray)
+        else -> ColorState(Color.LightGray, Color.LightGray, MyRed)
     }
     Surface(
         Modifier
             .background(Color.Transparent)
-            .fillMaxWidth(),shape = RoundedCornerShape(10.dp)) {
+            .fillMaxWidth(), shape = RoundedCornerShape(10.dp)
+    ) {
 
-            Column {Row (Modifier.padding(top = 16.dp,start = 16.dp,bottom = 2.dp)){
+        Column {
+            Row(Modifier.padding(top = 16.dp, start = 16.dp, bottom = 2.dp)) {
                 Box(modifier = Modifier
                     .size(20.dp)
                     .clip(RoundedCornerShape(50))
@@ -65,35 +68,47 @@ fun EditWindow(noEdit: ()-> Unit) {
                     }
                 )
             }
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),verticalAlignment = Alignment.CenterVertically) {
-                OutlinedTextField(value = text,
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                OutlinedTextField(
+                    value = text,
                     onValueChange = { text = it },
-                    label = { Text(text = "待办名称")},
+                    label = { Text(text = "待办名称") },
                     modifier = Modifier.weight(0.85f)
                 )
                 IconButton(onClick = {
-                    noEdit()
                     val simpleDateFormat = SimpleDateFormat("yyyy年MM月dd日 HH:mm") // HH:mm
                     val date = Date(System.currentTimeMillis())
                     val time = simpleDateFormat.format(date)
-                    viewModel.insertEvent(Event(text,checked,time,false))
-                                     },modifier = Modifier.weight(0.15f)) {
-                    val icon = painterResource(id = R.drawable.ic_done)
-                    Icon(painter = icon, contentDescription = "Done",modifier = Modifier.fillMaxSize(0.8f))
-                }
-                }
+                    if (text.isNotEmpty()) {
+                        viewModel.insertEvent(Event(text, checked, time, false))
+                        noEdit()
+                    } else {
+                        Toast.makeText(MyApplication.context, "请输入名称", Toast.LENGTH_SHORT).show()
+                    }
 
+                }, modifier = Modifier.weight(0.15f)) {
+                    val icon = painterResource(id = R.drawable.ic_done)
+                    Icon(
+                        painter = icon,
+                        contentDescription = "Done",
+                        modifier = Modifier.fillMaxSize(0.8f)
+                    )
+                }
             }
+
+        }
     }
 }
 
-data class ColorState(var Color1:Color, var Color2: Color,var Color3: Color)
+data class ColorState(var Color1: Color, var Color2: Color, var Color3: Color)
 
 @Preview(showBackground = true)
 @Composable
-fun editDemo(){
-    EditWindow {  }
+fun editDemo() {
+    EditWindow { }
 }

@@ -14,7 +14,7 @@ class MyViewModel:ViewModel() {
         thread { eventDao.insertEvent(event) }
     }
 
-    fun updateEventByDone(newEvent: Event){
+    fun updateEvent(newEvent: Event){
         thread { eventDao.updateEvent(newEvent) }
     }
     fun deleteEvent(eid:Long){
