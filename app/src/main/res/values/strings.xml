@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Demo</string>
+    <string name="OneStep">待办</string>
+    <string name="title_activity_edit">EditActivity</string>
+</resources>
