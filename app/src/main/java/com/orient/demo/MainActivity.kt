@@ -21,13 +21,19 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             var showEdit by remember { mutableStateOf(0) }
-            Box(contentAlignment = Alignment.Center){
+            Box(contentAlignment = Alignment.Center) {
                 FirstScreen { showEdit = 1 }
-                if (showEdit == 1){
-                    Box(modifier = Modifier.fillMaxSize(1f).background(Color.Black.copy(alpha = 0.3f)),contentAlignment = Alignment.Center){
-                        Box(Modifier.padding(start = 16.dp,end = 16.dp)) {
-                        EditWindow { showEdit = 0 }
-                    }}
+                if (showEdit == 1) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize(1f)
+                            .background(Color.Black.copy(alpha = 0.3f)),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Box(Modifier.padding(start = 16.dp, end = 16.dp)) {
+                            EditWindow { showEdit = 0 }
+                        }
+                    }
 
                 }
             }

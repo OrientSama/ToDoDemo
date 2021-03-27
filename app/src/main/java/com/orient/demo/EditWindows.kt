@@ -81,7 +81,7 @@ fun EditWindow(noEdit: () -> Unit) {
                     modifier = Modifier.weight(0.85f)
                 )
                 IconButton(onClick = {
-                    val simpleDateFormat = SimpleDateFormat("yyyy年MM月dd日 HH:mm") // HH:mm
+                    val simpleDateFormat = SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss") // HH:mm
                     val date = Date(System.currentTimeMillis())
                     val time = simpleDateFormat.format(date)
                     if (text.isNotEmpty()) {

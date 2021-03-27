@@ -17,15 +17,16 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import com.orient.demo.Data.Event
 import com.orient.demo.ui.theme.MyGreen
 import com.orient.demo.ui.theme.MyRed
 import com.orient.demo.ui.theme.MyYellow
 
 @Composable
-fun Cards(event_name: String, degree: Int, event_done: Boolean, eid: Long, update: () -> Unit) {
+fun Cards(event: Event,update:()->Unit) {
     MaterialTheme {
         val typography = MaterialTheme.typography
-        val color = if (!event_done) when (degree) {
+        val color = if (!event.eventDone) when (event.eventDegree) {
             1 -> MyGreen
             2 -> MyYellow
             else -> MyRed
@@ -43,15 +44,15 @@ fun Cards(event_name: String, degree: Int, event_done: Boolean, eid: Long, updat
                 Canvas(modifier = Modifier.size(16.dp)) {
                     drawCircle(color = color)
                 }
-                if (!event_done) {
+                if (!event.eventDone) {
                     Text(
-                        text = event_name,
+                        text = event.eventName,
                         style = typography.subtitle1,
                         modifier = Modifier.padding(start = 16.dp)
                     )
                 } else {
                     Text(
-                        text = event_name,
+                        text = event.eventName,
                         style = typography.subtitle1,
                         modifier = Modifier.padding(start = 16.dp).alpha(0.8f),
                         textDecoration = TextDecoration.LineThrough

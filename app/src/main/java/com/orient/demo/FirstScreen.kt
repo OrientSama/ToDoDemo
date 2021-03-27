@@ -45,12 +45,7 @@ fun FirstScreen(showEdit: () -> Unit) {
                 if (list.value != null) {
                     Column(modifier = Modifier.verticalScroll(scrollState)) {
                         for (event in list.value!!) {
-                            Cards(
-                                event_name = event.eventName,
-                                degree = event.eventDegree,
-                                event_done = event.eventDone,
-                                eid = event.eid
-                            ) {
+                            Cards(event) {
                                 event.eventDone = !event.eventDone
                                 viewModel.updateEvent(event)
                             }
