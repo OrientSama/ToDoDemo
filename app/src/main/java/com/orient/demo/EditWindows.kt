@@ -24,14 +24,14 @@ import java.util.*
 
 @SuppressLint("SimpleDateFormat")
 @Composable
-fun EditWindow(showEdit: ()-> Unit) {
+fun EditWindow(noEdit: ()-> Unit) {
     val viewModel:MyViewModel = viewModel()
     var text by remember{ mutableStateOf("") }
     var checked by remember { mutableStateOf(1) }
     var (color1,color2,color3) = when(checked){
-        1 -> ColorState(MyGreen,Color.Gray,Color.Gray)
-        2 -> ColorState(Color.Gray, MyYellow,Color.Gray)
-        else -> ColorState(Color.Gray,Color.Gray, MyRed)
+        1 -> ColorState(MyGreen,Color.LightGray,Color.LightGray)
+        2 -> ColorState(Color.LightGray, MyYellow,Color.LightGray)
+        else -> ColorState(Color.LightGray,Color.LightGray, MyRed)
     }
     Surface(
         Modifier
@@ -75,7 +75,7 @@ fun EditWindow(showEdit: ()-> Unit) {
                     modifier = Modifier.weight(0.85f)
                 )
                 IconButton(onClick = {
-                    showEdit()
+                    noEdit()
                     val simpleDateFormat = SimpleDateFormat("yyyy年MM月dd日 HH:mm") // HH:mm
                     val date = Date(System.currentTimeMillis())
                     val time = simpleDateFormat.format(date)
