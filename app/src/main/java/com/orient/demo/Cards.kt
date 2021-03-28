@@ -1,32 +1,35 @@
 package com.orient.demo
 
+import android.util.Log
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.orient.demo.roomdata.Event
 import com.orient.demo.ui.theme.MyGreen
 import com.orient.demo.ui.theme.MyRed
 import com.orient.demo.ui.theme.MyYellow
 
+@ExperimentalFoundationApi
 @Composable
-fun Cards(event: Event, update: () -> Unit) {
+fun Cards(event: Event, update: () -> Unit, delete: () -> Unit) {
     val typography = MaterialTheme.typography
     val color = if (!event.eventDone) when (event.eventDegree) {
         1 -> MyGreen
@@ -37,9 +40,9 @@ fun Cards(event: Event, update: () -> Unit) {
         modifier = Modifier
             .padding(start = 20.dp, end = 20.dp, top = 6.dp)
             .fillMaxWidth()
-            .clickable(onClick = { update() })
+            .combinedClickable(onClick = update, onLongClick = delete)
             .clip(RoundedCornerShape(12.dp)),
-        color = Color.White
+        color = MaterialTheme.colors.surface
     ) {
         Row(
             modifier = Modifier.padding(12.dp),
@@ -62,7 +65,8 @@ fun Cards(event: Event, update: () -> Unit) {
                 Text(
                     text = event.eventName,
                     style = typography.subtitle1,
-                    modifier = Modifier.padding(start = 12.dp)
+                    modifier = Modifier.padding(start = 12.dp),
+                    color = MaterialTheme.colors.onSurface
                 )
             } else {
                 Text(
@@ -71,7 +75,8 @@ fun Cards(event: Event, update: () -> Unit) {
                     modifier = Modifier
                         .padding(start = 12.dp)
                         .alpha(0.8f),
-                    textDecoration = TextDecoration.LineThrough
+                    textDecoration = TextDecoration.LineThrough,
+                    color = MaterialTheme.colors.onSurface
                 )
             }
 

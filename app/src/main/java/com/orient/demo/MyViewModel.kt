@@ -1,10 +1,8 @@
 package com.orient.demo
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.orient.demo.roomdata.AppDatabase
 import com.orient.demo.roomdata.Event
-import kotlinx.coroutines.coroutineScope
 import kotlin.concurrent.thread
 
 class MyViewModel : ViewModel() {
@@ -12,15 +10,12 @@ class MyViewModel : ViewModel() {
     fun getEventList() = eventDao.loadAllEvent()
 
     fun insertEvent(event: Event) {
-        thread { eventDao.insertEvent(event) }
+        thread{ eventDao.insertEvent(event) }
     }
 
     fun updateEvent(newEvent: Event) {
-        thread{ eventDao.updateEvent(newEvent)
-        }
+        thread{ eventDao.updateEvent(newEvent) }
     }
 
-    fun deleteEvent(eid: Long) {
-        eventDao.deleteEventByEid(eid)
-    }
+    fun deleteEvent(eid: Long) { thread{ eventDao.deleteEventByEid(eid) } }
 }
