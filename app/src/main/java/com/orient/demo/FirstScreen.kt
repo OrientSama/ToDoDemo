@@ -1,6 +1,5 @@
 package com.orient.demo
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
@@ -52,8 +51,9 @@ fun FirstScreen(viewModel: MyViewModel, showEdit: () -> Unit) {
                         items(events!!, key = { event -> event.eid }) { event ->
                             Cards(event,
                                 update = {
-                                    event.eventDone = !event.eventDone
-                                    viewModel.updateEvent(event)
+//                                    event.eventDone = !event.eventDone
+                                    val newEvent = event.copy(eventDone = !event.eventDone)
+                                    viewModel.updateEvent(newEvent)
                                 },
                                 delete = {
                                     viewModel.deleteEvent(event.eid)
