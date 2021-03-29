@@ -30,7 +30,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-//            val viewModel: MyViewModel = viewModel()
             var showEdit by remember { mutableStateOf(0) }
             Box(contentAlignment = Alignment.Center) {
                 DemoTheme {

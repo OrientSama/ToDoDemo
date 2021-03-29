@@ -2,7 +2,6 @@ package com.orient.demo
 
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,7 +12,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @ExperimentalFoundationApi
@@ -58,7 +56,9 @@ fun FirstScreen(viewModel: MyViewModel, showEdit: () -> Unit) {
                         items(events!!, key = { event -> event.eid }) { event ->
                             Cards(event,
                                 update = {
-//修改自身可能导致了UI不刷新                                    event.eventDone = !event.eventDone
+                                    //event.eventDone = !event.eventDone
+                                    //修改自身可能导致了UI不刷新
+                                    //修改event不会导致重组，LiveData的变更才会带来重组
                                     val newEvent = event.copy(eventDone = !event.eventDone)
                                     viewModel.updateEvent(newEvent)
                                 },
