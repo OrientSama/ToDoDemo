@@ -39,10 +39,10 @@ class MainActivity : ComponentActivity() {
                         Box(
                             modifier = Modifier
                                 .fillMaxSize(1f)
-                                .background(Color.Black.copy(alpha = 0.3f)),
-                            contentAlignment = Alignment.Center
+                                .background(Color.Black.copy(alpha = 0.2f)),
+                            contentAlignment = Alignment.BottomCenter
                         ) {
-                            Box(Modifier.padding(start = 16.dp, end = 16.dp)) {
+                            Box {
                                 EditWindow(viewModel) { showEdit = 0 }
                             }
                         }
@@ -51,6 +51,11 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        /*TODO*/
     }
 
 }

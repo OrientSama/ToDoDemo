@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -34,7 +35,7 @@ fun EditWindow(viewModel: MyViewModel, noEdit: () -> Unit) {
     Surface(
         Modifier
             .background(Color.Transparent)
-            .fillMaxWidth(), shape = RoundedCornerShape(10.dp)
+            .fillMaxWidth(), shape = RoundedCornerShape(topStart = 10.dp,topEnd = 10.dp)
     ) {
 
         Column {
@@ -82,6 +83,8 @@ fun EditWindow(viewModel: MyViewModel, noEdit: () -> Unit) {
                         val time = simpleDateFormat.format(date)
                         if (text.isNotEmpty()) {
                             viewModel.insertEvent(Event(text, checked, time, false))
+                            Toast.makeText(MyApplication.context, "已保存", Toast.LENGTH_SHORT)
+                                .show()
                             noEdit()
                         } else {
                             Toast.makeText(MyApplication.context, "请输入名称", Toast.LENGTH_SHORT)
@@ -105,8 +108,22 @@ fun EditWindow(viewModel: MyViewModel, noEdit: () -> Unit) {
                     value = text,
                     onValueChange = { text = it },
                     label = { Text(text = "待办名称") },
-                    modifier = Modifier.weight(0.9f),
-                    singleLine = true
+                    modifier = Modifier.weight(1f),
+                    singleLine = true,
+                    keyboardActions = KeyboardActions(onDone = {
+                        val simpleDateFormat = SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss") // HH:mm:ss
+                        val date = Date(System.currentTimeMillis())
+                        val time = simpleDateFormat.format(date)
+                        if (text.isNotEmpty()) {
+                            viewModel.insertEvent(Event(text, checked, time, false))
+                            Toast.makeText(MyApplication.context, "已保存", Toast.LENGTH_SHORT)
+                                .show()
+                            noEdit()
+                        } else {
+                            Toast.makeText(MyApplication.context, "请输入名称", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    })
                 )
             }
 

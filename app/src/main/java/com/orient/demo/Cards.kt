@@ -1,6 +1,5 @@
 package com.orient.demo
 
-import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -10,9 +9,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -36,12 +32,13 @@ fun Cards(event: Event, update: () -> Unit, delete: () -> Unit) {
         2 -> MyYellow
         else -> MyRed
     } else Color.LightGray
+
     Surface(
         modifier = Modifier
             .padding(start = 20.dp, end = 20.dp, top = 6.dp)
             .fillMaxWidth()
-            .combinedClickable(onClick = update, onLongClick = delete)
-            .clip(RoundedCornerShape(12.dp)),
+            .clip(RoundedCornerShape(12.dp))
+            .combinedClickable(onClick = update, onLongClick = delete),
         color = MaterialTheme.colors.surface
     ) {
         Row(
@@ -83,10 +80,3 @@ fun Cards(event: Event, update: () -> Unit, delete: () -> Unit) {
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun default() {
-//    Cards(event = Event("哭泣的黑曜石", 3, "2021,3,28", false)) {
-//    }
-//}

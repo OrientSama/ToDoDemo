@@ -17,7 +17,7 @@ interface EventDao {
 
     @Query("select * from Event order by eventDone asc, eventCreateTime desc")
     //先按照未完成0->1完成 之后 后创建的放在最前面
-    fun loadAllEvent(): LiveData<List<Event>>
+        fun loadAllEvent(): LiveData<List<Event>>
 
     @Query("delete from Event where eid = :eid")
     fun deleteEventByEid(eid: Long): Int
