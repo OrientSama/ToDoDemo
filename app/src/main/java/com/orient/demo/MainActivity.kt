@@ -10,7 +10,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,7 +17,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.orient.demo.ui.theme.DemoTheme
 
 
@@ -30,19 +28,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            var showEdit by remember { mutableStateOf(0) }
+            var visibleEdit by remember { mutableStateOf(false) }
             Box(contentAlignment = Alignment.Center) {
                 DemoTheme {
-                    FirstScreen(viewModel) { showEdit = 1 }
-                    if (showEdit == 1) {
+                    FirstScreen(viewModel) { visibleEdit = true }
+                    if (visibleEdit) {
                         Box(
                             modifier = Modifier
                                 .fillMaxSize(1f)
-                                .background(Color.Black.copy(alpha = 0.2f)),
+                                .background(Color.Black.copy(alpha = 0.15f)),
                             contentAlignment = Alignment.BottomCenter
                         ) {
                             Box {
-                                EditWindow(viewModel) { showEdit = 0 }
+                                EditWindow(viewModel) { visibleEdit = false }
                             }
                         }
 
@@ -50,11 +48,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        /*TODO*/
     }
 
 }

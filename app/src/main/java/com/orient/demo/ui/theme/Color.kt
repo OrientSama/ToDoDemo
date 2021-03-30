@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.colorspace.WhitePoint
 
 val Grey900 = Color(0xFF303030)
-val WhiteGray = Color(0xFFF5F5F5)
+val WhiteGray = Color(0xFFF2F2F2)
 val Yellow500 = Color(0xFFFFEB3B)
 val DeepOrange900 = Color(0xFFBF360C)
 val MyGreen = Color(red = 22,green = 220, blue = 176)

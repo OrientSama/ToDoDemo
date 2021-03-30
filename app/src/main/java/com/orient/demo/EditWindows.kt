@@ -35,7 +35,7 @@ fun EditWindow(viewModel: MyViewModel, noEdit: () -> Unit) {
     Surface(
         Modifier
             .background(Color.Transparent)
-            .fillMaxWidth(), shape = RoundedCornerShape(topStart = 10.dp,topEnd = 10.dp)
+            .fillMaxWidth(), shape = RoundedCornerShape(topStart = 20.dp,topEnd = 20.dp)
     ) {
 
         Column {

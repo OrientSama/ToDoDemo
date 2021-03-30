@@ -1,5 +1,7 @@
 package com.orient.demo
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -9,6 +11,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -27,11 +30,12 @@ import com.orient.demo.ui.theme.MyYellow
 @Composable
 fun Cards(event: Event, update: () -> Unit, delete: () -> Unit) {
     val typography = MaterialTheme.typography
-    val color = if (!event.eventDone) when (event.eventDegree) {
+    val color by animateColorAsState(targetValue = if (!event.eventDone) when (event.eventDegree) {
         1 -> MyGreen
         2 -> MyYellow
         else -> MyRed
-    } else Color.LightGray
+    } else Color.LightGray,
+        animationSpec = spring())
 
     Surface(
         modifier = Modifier
@@ -71,7 +75,7 @@ fun Cards(event: Event, update: () -> Unit, delete: () -> Unit) {
                     style = typography.subtitle1,
                     modifier = Modifier
                         .padding(start = 12.dp)
-                        .alpha(0.8f),
+                        .alpha(0.6f),
                     textDecoration = TextDecoration.LineThrough,
                     color = MaterialTheme.colors.onSurface
                 )
